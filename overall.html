@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R22 Calculator - Overall</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>R22 Calculator</h1>
+        <nav class="standard-nav">
+            <ul class="nav-menu">
+              <li><a href="index.html">Internals</a></li>
+              <li><a href="external.html">Externals</a></li>
+              <li><a href="overall.html">Internal+External</a></li>
+            </ul>
+          </nav>
+      
+          <!-- Hamburger for smaller screens -->
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <nav>
+            <ul class="nav-menu hidden">
+              <li><a href="index.html">Internals</a></li>
+              <li><a href="external.html">Externals</a></li>
+              <li><a href="overall.html">Internal+External</a></li>
+            </ul>
+          </nav>
+        </header>
+      
+
+  <main>
+    <div class="calculator">
+      <h2>Overall Marks Calculator</h2>
+      <form id="overallForm">
+        <!-- Internals Section -->
+        <div class="internal-section">
+          <h3>Internals</h3>
+          <label for="fat1_written">FAT1 Written Test (50):</label>
+          <input type="number" id="fat1_written" max="50" min="0" required>
+          
+          <label for="fat1_assignment">FAT1 Assignment (50):</label>
+          <input type="number" id="fat1_assignment" max="50" min="0" required>
+
+          <label for="fat2_written">FAT2 Written Test (50):</label>
+          <input type="number" id="fat2_written" max="50" min="0" required>
+          
+          <label for="fat2_assignment">FAT2 Assignment (50):</label>
+          <input type="number" id="fat2_assignment" max="50" min="0" required>
+
+          <label for="fat3_written">FAT3 Written Test (50):</label>
+          <input type="number" id="fat3_written" max="50" min="0" required>
+          
+          <label for="fat3_assignment">FAT3 Assignment (50):</label>
+          <input type="number" id="fat3_assignment" max="50" min="0" required>
+        </div>
+
+        <!-- Externals Section -->
+        <div class="external-section">
+          <h3>Externals</h3>
+          <label for="endSemMarks">End-Semester Exam Marks (100):</label>
+          <input type="number" id="endSemMarks" max="100" min="0" required>
+        </div>
+
+        <!-- Calculate Button -->
+        <button type="button" onclick="calculateOverallMarks()">Calculate Final Score</button>
+      </form>
+
+      <!-- Result Section -->
+      <div class="result">
+        <h3>Internal Marks: <span id="internalResult">0</span> / 40</h3>
+        <h3>External Marks: <span id="externalResult">0</span> / 60</h3>
+        <h3>Final Score: <span id="finalScore">0</span> / 100</h3>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Developed by Akeel Ahamed R S</p>
+    <p>BE. Computer Science Engineering student at SVCE</p>
+    <p>
+      LinkedIn: <a href="https://www.linkedin.com/in/akeelahamed242k5/" target="_blank">Profile</a> |
+      GitHub: <a href="https://github.com/akeelahamed24" target="_blank">Profile</a>
+    </p>
+    <p>Copyright © 2024 R22 Calculator. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="overall.js"></script>
+  <script>
+    function calculateOverallMarks() {
+      // Internals Calculation
+      const fat1_written = parseFloat(document.getElementById('fat1_written').value) || 0;
+      const fat1_assignment = parseFloat(document.getElementById('fat1_assignment').value) || 0;
+      const fat2_written = parseFloat(document.getElementById('fat2_written').value) || 0;
+      const fat2_assignment = parseFloat(document.getElementById('fat2_assignment').value) || 0;
+      const fat3_written = parseFloat(document.getElementById('fat3_written').value) || 0;
+      const fat3_assignment = parseFloat(document.getElementById('fat3_assignment').value) || 0;
+
+      const internalScore = (
+        ((fat1_written + fat1_assignment) / 100) * 10 +
+        ((fat2_written + fat2_assignment) / 100) * 10 +
+        ((fat3_written + fat3_assignment) / 100) * 20
+      );
+      const cappedInternalScore = Math.min(internalScore, 40);
+
+      // Externals Calculation
+      const endSemMarks = parseFloat(document.getElementById('endSemMarks').value) || 0;
+      const externalScore = (endSemMarks / 100) * 60;
+      const cappedExternalScore = Math.min(externalScore, 60);
+
+      // Final Score Calculation
+      const finalScore = cappedInternalScore + cappedExternalScore;
+
+      // Display Results
+      document.getElementById('internalResult').textContent = cappedInternalScore.toFixed(2);
+      document.getElementById('externalResult').textContent = cappedExternalScore.toFixed(2);
+      document.getElementById('finalScore').textContent = finalScore.toFixed(2);
+    }
+  </script>
+  <script>
+    function toggleMenu() {
+      const navMenu = document.querySelector('.nav-menu');
+      navMenu.classList.toggle('show');
+    }
+  </script>
+  
+</body>
+</html>

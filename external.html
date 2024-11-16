@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R22 Calculator - Externals</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>R22 Calculator</h1>
+        <nav class="standard-nav">
+            <ul class="nav-menu">
+              <li><a href="index.html">Internals</a></li>
+              <li><a href="external.html">Externals</a></li>
+              <li><a href="overall.html">Internal+External</a></li>
+            </ul>
+          </nav>
+      
+          <!-- Hamburger for smaller screens -->
+          <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <nav>
+            <ul class="nav-menu hidden">
+              <li><a href="index.html">Internals</a></li>
+              <li><a href="external.html">Externals</a></li>
+              <li><a href="overall.html">Internal+External</a></li>
+            </ul>
+          </nav>
+        </header>
+      
+  <main>
+    <div class="calculator">
+      <h2>External Marks Calculator</h2>
+      <form id="externalForm">
+        <label for="endSemMarks">End-Semester Exam Marks (100):</label>
+        <input type="number" id="endSemMarks" max="100" min="0" required>
+        <button type="button" onclick="calculateExternalMarks()">Calculate Externals</button>
+      </form>
+      <div class="result">
+        <h3>External Marks: <span id="externalResult">0</span> / 60</h3>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>Developed by Akeel Ahamed R S</p>
+    <p>BE. Computer Science Engineering student at SVCE</p>
+    <p>
+      LinkedIn: <a href="https://www.linkedin.com/in/akeelahamed242k5/" target="_blank">Profile</a> |
+      GitHub: <a href="https://github.com/akeelahamed24" target="_blank">Profile</a>
+    </p>
+    <p>Copyright © 2024 R22 Calculator. All rights reserved.</p>
+  </footer>
+  <script src="app.js"></script>
+  <script src="external.js"></script>
+  <script>
+    function calculateExternalMarks() {
+      const endSemMarks = parseFloat(document.getElementById('endSemMarks').value) || 0;
+      const externalMarks = (endSemMarks / 100) * 60;
+      const cappedExternalMarks = Math.min(externalMarks, 60);
+
+      document.getElementById('externalResult').textContent = cappedExternalMarks.toFixed(2);
+    }
+  </script>
+  <script>
+    function toggleMenu() {
+      const navMenu = document.querySelector('.nav-menu');
+      navMenu.classList.toggle('show');
+    }
+  </script>
+  
+</body>
+</html>
