@@ -31,6 +31,9 @@
               <li><a href="overall.html">Internal+External</a></li>
             </ul>
           </nav>
+
+          <!-- Install Button for PWA -->
+          <button id="installBtn" style="display: none;">Install App</button>
         </header>
       
   <main>
@@ -67,6 +70,33 @@
   </footer>
   <script src="app.js"></script>
   <script>
+    // Install PWA button functionality
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent the default prompt
+      e.preventDefault();
+      // Store the event for later
+      deferredPrompt = e;
+      // Show the install button
+      const installBtn = document.getElementById('installBtn');
+      installBtn.style.display = 'block';
+
+      installBtn.addEventListener('click', () => {
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for user response
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          } else {
+            console.log('User dismissed the install prompt');
+          }
+          // Reset the prompt
+          deferredPrompt = null;
+        });
+      });
+    });
+
     function calculateInternalMarks() {
       const fat1_written = parseFloat(document.getElementById('fat1_written').value) || 0;
       const fat1_assignment = parseFloat(document.getElementById('fat1_assignment').value) || 0;
@@ -84,13 +114,11 @@
 
       document.getElementById('internalResult').textContent = cappedInternalMarks.toFixed(2);
     }
-  </script>
-  <script>
+
     function toggleMenu() {
       const navMenu = document.querySelector('.nav-menu');
       navMenu.classList.toggle('show');
     }
   </script>
-  
 </body>
 </html>
